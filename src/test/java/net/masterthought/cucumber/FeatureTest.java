@@ -24,20 +24,22 @@ public class FeatureTest {
     @Before
     public void setUpJsonReports() throws IOException {
         List<String> jsonReports = new ArrayList<String>();
-        jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/project1.json"));
-        jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/project2.json"));
+        String report1 = getAbsolutePathFromResource("net/masterthought/cucumber/project1.json");
+        jsonReports.add(report1);
+        String report2 = getAbsolutePathFromResource("net/masterthought/cucumber/project2.json");
+        jsonReports.add(report2);
         reportParser = new ReportParser(jsonReports);
-        passingFeature = reportParser.getFeatures().entrySet().iterator().next().getValue().get(0);
-        failingFeature = reportParser.getFeatures().entrySet().iterator().next().getValue().get(1);
+        passingFeature = reportParser.getFeatures().get(report1).get(0);
+        failingFeature = reportParser.getFeatures().get(report2).get(1);
         passingFeature.processSteps();
         failingFeature.processSteps();
     }
 
-//    @Test
-//    public void shouldReturnListOfScenarios() throws IOException {
-//        assertThat(feature.getElements()[0], is(Element.class));
-//        assertThat(feature.getElements().length, is(4));
-//    }
+    // @Test
+    // public void shouldReturnListOfScenarios() throws IOException {
+    // assertThat(feature.getElements()[0], is(Element.class));
+    // assertThat(feature.getElements().length, is(4));
+    // }
 
     @Test
     public void shouldReturnManagedFileName() {
@@ -46,8 +48,9 @@ public class FeatureTest {
 
     @Test
     public void shouldGetDescription() {
-        assertThat(passingFeature.getDescription(), is("<div class=\"feature-description\">As a Account Holder<br/><span class=\"feature-action\">I want to</span> withdraw cash from an ATM<br/><span class=\"feature-value\">So that</span> I can get money when the bank is closed</div>"
-        ));
+        assertThat(
+                passingFeature.getDescription(),
+                is("<div class=\"feature-description\">As a Account Holder<br/><span class=\"feature-action\">I want to</span> withdraw cash from an ATM<br/><span class=\"feature-value\">So that</span> I can get money when the bank is closed</div>"));
     }
 
     @Test
@@ -126,11 +129,11 @@ public class FeatureTest {
         assertThat(passingFeature.getDurationOfSteps(), StringContains.containsString("ms"));
     }
 
-//    @Test
-//    public void shouldGetNumberOScenarios() {
-//        assertThat(feature.getNumberOfScenarios(), is(4));
-//
-//    }
+    // @Test
+    // public void shouldGetNumberOScenarios() {
+    // assertThat(feature.getNumberOfScenarios(), is(4));
+    //
+    // }
 
     @Test
     public void shouldProcessFeatureWhenNoScenarios() throws IOException {
@@ -140,6 +143,5 @@ public class FeatureTest {
         Feature feature = reportParser.getFeatures().entrySet().iterator().next().getValue().get(0);
         feature.processSteps();
     }
-
 
 }

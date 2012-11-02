@@ -65,9 +65,9 @@ public class ReportBuilder {
     }
 
     public void generateFeatureReports() throws Exception {
-        Iterator it = ri.getProjectFeatureMap().entrySet().iterator();
+        Iterator<Map.Entry<String, List<Feature>>> it = ri.getProjectFeatureMap().entrySet().iterator();
         while (it.hasNext()) {
-            Map.Entry pairs = (Map.Entry) it.next();
+        	Map.Entry<String, List<Feature>> pairs = it.next();
             List<Feature> featureList = (List<Feature>) pairs.getValue();
 
             for (Feature feature : featureList) {

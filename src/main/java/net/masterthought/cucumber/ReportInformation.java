@@ -1,14 +1,17 @@
 package net.masterthought.cucumber;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
 import net.masterthought.cucumber.json.Artifact;
 import net.masterthought.cucumber.json.Element;
 import net.masterthought.cucumber.json.Feature;
 import net.masterthought.cucumber.json.Step;
 import net.masterthought.cucumber.util.Util;
-
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.*;
 
 public class ReportInformation {
 
@@ -41,10 +44,10 @@ public class ReportInformation {
 
     private List<Feature> listAllFeatures() {
         List<Feature> allFeatures = new ArrayList<Feature>();
-        Iterator it = projectFeatureMap.entrySet().iterator();
+        Iterator<Map.Entry<String, List<Feature>>> it = projectFeatureMap.entrySet().iterator();
         while (it.hasNext()) {
-            Map.Entry pairs = (Map.Entry) it.next();
-            List<Feature> featureList = (List<Feature>) pairs.getValue();
+        	Map.Entry<String, List<Feature>> pairs = it.next();
+            List<Feature> featureList = pairs.getValue();
             allFeatures.addAll(featureList);
         }
         return allFeatures;

@@ -4,6 +4,8 @@ import net.masterthought.cucumber.json.Feature;
 import net.masterthought.cucumber.json.Row;
 import net.masterthought.cucumber.json.Step;
 import net.masterthought.cucumber.util.Util;
+
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -36,7 +38,12 @@ public class StepTest {
         skippedStep = failingFeature.getElements()[0].getSteps()[6];
     }
 
-    @Test
+    @After
+    public void after() {
+        ConfigurationOptions.setSkippedFailsBuild(false);
+    }
+
+	@Test
     public void shouldReturnRows() throws IOException {
         List<String> jsonReports = new ArrayList<String>();
         jsonReports.add(getAbsolutePathFromResource("net/masterthought/cucumber/cells.json"));
@@ -88,8 +95,6 @@ public class StepTest {
         assertThat(skippedStep.getName(), is("<div class=\"failed\"><span class=\"step-keyword\">And  </span><span class=\"step-name\">the card should be returned</span><div class=\"step-error-message\"><pre>Mode: Skipped causes Failure<br/><span class=\"skipped\">This step was skipped</span></pre></div></div>"
         ));
     }
-
-
 
 }
 

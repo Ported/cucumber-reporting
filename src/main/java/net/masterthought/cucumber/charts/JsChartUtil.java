@@ -6,15 +6,15 @@ import java.util.*;
 
 public class JsChartUtil {
 
-    class ValueComparator implements Comparator {
+    class ValueComparator implements Comparator<String> {
 
-        Map base;
+        Map<String, Integer> base;
 
-        public ValueComparator(Map base) {
+        public ValueComparator(Map<String, Integer> base) {
             this.base = base;
         }
 
-        public int compare(Object a, Object b) {
+        public int compare(String a, String b) {
 
             if ((Integer) base.get(a) < (Integer) base.get(b)) {
                 return 1;
@@ -29,7 +29,7 @@ public class JsChartUtil {
     public List<String> orderStepsByValue(int numberTotalPassed, int numberTotalFailed, int numberTotalSkipped, int numberTotalPending) {
         HashMap<String, Integer> map = new HashMap<String, Integer>();
         ValueComparator bvc = new ValueComparator(map);
-        TreeMap<String, Integer> sorted_map = new TreeMap(bvc);
+        TreeMap<String, Integer> sorted_map = new TreeMap<String, Integer>(bvc);
 
         map.put("#88dd11", numberTotalPassed);
         map.put("#cc1134", numberTotalFailed);
@@ -47,7 +47,7 @@ public class JsChartUtil {
     public List<String> orderScenariosByValue(int numberTotalPassed, int numberTotalFailed) {
         HashMap<String, Integer> map = new HashMap<String, Integer>();
         ValueComparator bvc = new ValueComparator(map);
-        TreeMap<String, Integer> sorted_map = new TreeMap(bvc);
+        TreeMap<String, Integer> sorted_map = new TreeMap<String, Integer>(bvc);
 
         map.put("#88dd11", numberTotalPassed);
         map.put("#cc1134", numberTotalFailed);

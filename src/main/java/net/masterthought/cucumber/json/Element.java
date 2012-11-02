@@ -9,7 +9,6 @@ import java.util.List;
 public class Element {
 
     private String name;
-    private String description;
     private String keyword;
     private Step[] steps;
     private Tag[] tags;
